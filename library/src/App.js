@@ -3,7 +3,7 @@ import './App.css';
  * Pour le système de route, on utilise la librairie React Router, un des routers les plus populaires pour gérer les routes
  * https://www.w3schools.com/react/react_router.asp
 */
-import { BrowserRouter as Router,  Route,  Routes,} from "react-router-dom";
+import { Route,  Routes} from "react-router-dom";
 import Layout from './components/Layout';
 import Author from './components/Author/Author';
 import Book from './components/Book/Book';
@@ -12,8 +12,7 @@ import Gender from './components/Gender/Gender';
 
 function App() {
   return (
-    <div>      
-      <Router>
+    <div>
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Book />} />
@@ -22,7 +21,6 @@ function App() {
             <Route path="*" element={<Book />} />
           </Route>
         </Routes>
-      </Router>
     </div>
   );
 }
