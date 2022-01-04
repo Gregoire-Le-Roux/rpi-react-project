@@ -3,7 +3,7 @@ import { fetchBooksAuthor } from '../../api/Book';
 import { Modal, Button } from 'react-bootstrap';
 
 
-function ModalBooks(props) {
+function ModalAuthorBooks(props) {
     const [books, setBooks] = useState([]);
 
     useEffect(() => {
@@ -28,7 +28,7 @@ function ModalBooks(props) {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Liste des livres écrits par {props.author.firstname + " " + props.author.name}
+            Liste des livres écrits par {props.author !== undefined ? props.author.firstname + " " + props.author.name : "aucun auteur"}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -59,4 +59,4 @@ function ModalBooks(props) {
     );
   }
 
-export default ModalBooks;
+export default ModalAuthorBooks;

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { fetchAuthors } from '../../api/Author';
-import ModalBooks from './ModalBooks';
+import ModalAuthorBooks from './ModalAuthorBooks';
 import moment from 'moment'
 
   
@@ -68,7 +68,7 @@ function Author() {
                 </table>
             </div>
             
-            <ModalBooks
+            <ModalAuthorBooks
                 show={modalShow}
                 onHide={() => setModalShow(false)}
                 author={author}
