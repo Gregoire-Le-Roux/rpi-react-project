@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { fetchAuthors } from '../../api/Author';
 import ModalBooks from './ModalBooks';
+import moment from 'moment'
 
   
 function Author() {
     const [authors, setAuthors] = useState([]);
-    const [authorId, setAuthorId] = useState();
+    const [author, setAuthor] = useState();
     const [modalShow, setModalShow] = useState(false);
 
     useEffect(() => {
@@ -19,8 +20,8 @@ function Author() {
 
     console.log(authors)
 
-    const openModal = (authorId) => {
-        setAuthorId({id: authorId});
+    const openModal = (author) => {
+        setAuthor(author);
         setModalShow(true);
     }
 
@@ -40,7 +41,7 @@ function Author() {
                                 Date de naissance
                             </th>
                             <th>
-                                Livres écrits
+                                Livre écrit
                             </th>
                             <th>
                                 Modifier
@@ -56,8 +57,8 @@ function Author() {
                                 <tr key={author.id}>
                                     <td>{author.name}</td>
                                     <td>{author.firstname}</td>
-                                    <td>{author.dateOfBirth}</td>
-                                    <td><button onClick={() => openModal(author.id)}>Voir ({author.nbBook})</button></td>
+                                    <td>{moment(author.dateOfBirth).format("DD/MM/YYYY")}</td>
+                                    <td><button onClick={() => openModal(author)}>Voir ({author.nbBook})</button></td>
                                     <td><button style={{backgroundColor: "#33cc33"}}>Modifier</button></td>
                                     <td><button style={{backgroundColor: "#cc0000"}}>Supprimer</button></td>
                                 </tr>
@@ -70,7 +71,7 @@ function Author() {
             <ModalBooks
                 show={modalShow}
                 onHide={() => setModalShow(false)}
-                author_id={authorId}
+                author={author}
             />
         </>
     );

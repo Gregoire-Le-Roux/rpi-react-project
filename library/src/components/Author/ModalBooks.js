@@ -7,16 +7,15 @@ function ModalBooks(props) {
     const [books, setBooks] = useState([]);
 
     useEffect(() => {
-        if(props.author_id !== undefined) {
-            console.log(props.author_id)
+        if(props.author !== undefined) {
             fetchData();
         }
 
         async function fetchData() {
-            await fetchBooksAuthor(props.author_id).then(res => { setBooks(res.data) });
+            await fetchBooksAuthor(props.author).then(res => { setBooks(res.data) });
         }
 
-    }, [props.author_id])
+    }, [props.author])
 
     console.log(books);
 
@@ -29,7 +28,7 @@ function ModalBooks(props) {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Liste des livres écrits par l'auteur
+            Liste des livres écrits par {props.author.firstname + " " + props.author.name}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
