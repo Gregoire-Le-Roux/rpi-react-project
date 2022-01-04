@@ -12,9 +12,10 @@ export const fetchBooks = async () => {
     })
 }
 
-export const fetchBooksAuthor = async () => {
+export const fetchBooksAuthor = async (authorId) => {
+    let id = JSON.stringify(authorId);
     return new Promise((resolve, reject) => {
-        axios.get(api_book + "/getLivreAuteur.php")
+        axios.post(api_book + "/getLivreAuteur.php", id)
             .then(res => {
                 resolve(res);
             });
