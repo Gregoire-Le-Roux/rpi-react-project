@@ -1,8 +1,8 @@
 import { Modal, Button } from 'react-bootstrap';
-import { AddAuthorForm } from './Form';
+import { ModifyAuthorForm } from './Form';
 
 
-function ModalAddAuthor(props) {
+function ModalModifyAuthor(props) {
     return (
       <Modal
         {...props}
@@ -12,11 +12,11 @@ function ModalAddAuthor(props) {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Ajouter un auteur
+            Modifier l'auteur {props.author !== undefined ? props.author.firstname + " " + props.author.name : "aucun"}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <AddAuthorForm onHide={props.onHide} updateauthors={props.updateauthors}></AddAuthorForm>          
+          <ModifyAuthorForm onHide={props.onHide} author={props.author} updateauthors={props.updateauthors}></ModifyAuthorForm>          
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={props.onHide}>Close</Button>
@@ -25,4 +25,4 @@ function ModalAddAuthor(props) {
     );
   }
 
-export default ModalAddAuthor;
+export default ModalModifyAuthor;

@@ -37,7 +37,7 @@ function ModalAuthorBooks(props) {
                     <p>
                         Genres : {book.listeGenre.map((genre, index) => {
                             return (
-                                index !== 1 ? genre.name : ", " + genre.name                                
+                                index === 0 ? genre.name : ", " + genre.name                                
                             )
                         })}
                     </p>

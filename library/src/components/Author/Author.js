@@ -3,6 +3,7 @@ import moment from 'moment'
 import { fetchAuthors, deleteAuthor } from '../../api/Author';
 import ModalAuthorBooks from './ModalAuthorBooks';
 import ModalAddAuthor from './ModalAddAuthor';
+import ModalModifyAuthor from './ModalModifyAuthor';
 import ModalDeleteAuthor from './ModalDeleteAuthor';
 
   
@@ -10,8 +11,9 @@ function Author() {
     const [authors, setAuthors] = useState([]);
     const [author, setAuthor] = useState();
     const [authorIndex, setAuthorIndex] = useState();
-    const [modalShowAuthorBook, setModalShowAuthorBook] = useState(false);
     const [modalShowAddAuthor, setModalShowAddAuthor] = useState(false);
+    const [modalShowAuthorBook, setModalShowAuthorBook] = useState(false);
+    const [modalShowModifyAuthor, setModalShowModifyAuthor] = useState(false);
     const [modalShowDeleteAuthor, setModalShowDeleteAuthor] = useState(false);
 
     //On appelle useEffect qu'au chargement de la page pour faire un side effect donc un appel api pour récupérer les 
@@ -34,6 +36,14 @@ function Author() {
         setAuthors(listAuthors);
     }
 
+    const onModifyAuthor = (author) => {        
+        let listAuthors = [...authors];
+        const index = listAuthors.findIndex((auth) => auth.id === author.id);
+        listAuthors[index] = author;
+        listAuthors = sortAuthorsByName(listAuthors);
+        setAuthors(listAuthors);
+    }
+
     const onDeleteAuthor = (id, index) => {
         deleteAuthor({ id: id }).then(() => {
             let listAuthors = [...authors];
@@ -51,18 +61,24 @@ function Author() {
         setModalShowAuthorBook(true);
     }
 
+    const openModalModifyAuthor = (author) => {
+        setAuthor(author);
+        setModalShowModifyAuthor(true);
+    }
+
     const openModalDeleteAuthor = (author, index) => {
         setAuthor(author);
         setAuthorIndex(index);
         setModalShowDeleteAuthor(true);
     }
 
+
     const sortAuthorsByName = (authors) => {
         let sortAuthors = authors
         sortAuthors.sort((a, b) => {
             let fa = a.name.toLowerCase();
             let fb = b.name.toLowerCase();
-        
+
             if (fa < fb) {
                 return -1;
             }
@@ -72,7 +88,7 @@ function Author() {
             return 0;
         });
         return sortAuthors
-     }
+    }
 
     return (
         <>
@@ -106,8 +122,8 @@ function Author() {
                                     <td>{author.firstname}</td>
                                     <td>{moment(author.dateOfBirth).format("DD/MM/YYYY")}</td>
                                     <td><button onClick={() => openModalAuthorBook(author)}>Voir ({author.nbBook})</button></td>
-                                    <td><button style={{backgroundColor: "#33cc33"}}>Modifier</button></td>
-                                    <td><button onClick={() => openModalDeleteAuthor(author, index) } style={{backgroundColor: "#cc0000"}}>Supprimer</button></td>
+                                    <td><button onClick={() => openModalModifyAuthor(author)} style={{backgroundColor: "#33cc33"}}>Modifier</button></td>
+                                    <td><button onClick={() => openModalDeleteAuthor(author, index)} style={{backgroundColor: "#cc0000"}}>Supprimer</button></td>
                                 </tr>
                             ))
                         }
@@ -115,16 +131,24 @@ function Author() {
                 </table>
             </div>
             
+
+            <ModalAddAuthor
+                show={modalShowAddAuthor}
+                onHide={() => setModalShowAddAuthor(false)}
+                updateauthors={onAddAuthor}
+            />
+
             <ModalAuthorBooks
                 show={modalShowAuthorBook}
                 onHide={() => setModalShowAuthorBook(false)}
                 author={author}
             />
 
-            <ModalAddAuthor
-                show={modalShowAddAuthor}
-                onHide={() => setModalShowAddAuthor(false)}
-                updateauthors={onAddAuthor}
+            <ModalModifyAuthor
+                show={modalShowModifyAuthor}
+                onHide={() => setModalShowModifyAuthor(false)}
+                updateauthors={onModifyAuthor}
+                author={author}
             />
 
             <ModalDeleteAuthor
