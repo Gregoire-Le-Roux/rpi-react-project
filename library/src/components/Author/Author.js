@@ -1,15 +1,18 @@
 import { useState, useEffect } from 'react';
 import moment from 'moment'
-import { fetchAuthors } from '../../api/Author';
+import { fetchAuthors, deleteAuthor } from '../../api/Author';
 import ModalAuthorBooks from './ModalAuthorBooks';
 import ModalAddAuthor from './ModalAddAuthor';
+import ModalDeleteAuthor from './ModalDeleteAuthor';
 
   
 function Author() {
     const [authors, setAuthors] = useState([]);
     const [author, setAuthor] = useState();
+    const [authorIndex, setAuthorIndex] = useState();
     const [modalShowAuthorBook, setModalShowAuthorBook] = useState(false);
     const [modalShowAddAuthor, setModalShowAddAuthor] = useState(false);
+    const [modalShowDeleteAuthor, setModalShowDeleteAuthor] = useState(false);
 
     //On appelle useEffect qu'au chargement de la page pour faire un side effect donc un appel api pour récupérer les 
     //auteurs existants
@@ -25,7 +28,19 @@ function Author() {
         fetchData();
     }, [])
 
-    // console.log(authors)
+    const onAddAuthor = (newAuthor) => {        
+        let listAuthors = [...authors, newAuthor];
+        listAuthors = sortAuthorsByName(listAuthors);
+        setAuthors(listAuthors);
+    }
+
+    const onDeleteAuthor = (id, index) => {
+        deleteAuthor({ id: id }).then(() => {
+            let listAuthors = [...authors];
+            listAuthors.splice(index, 1);
+            setAuthors(listAuthors);
+        })
+    }
 
     const openModalAddAuthor = () => {
         setModalShowAddAuthor(true);
@@ -35,6 +50,29 @@ function Author() {
         setAuthor(author);
         setModalShowAuthorBook(true);
     }
+
+    const openModalDeleteAuthor = (author, index) => {
+        setAuthor(author);
+        setAuthorIndex(index);
+        setModalShowDeleteAuthor(true);
+    }
+
+    const sortAuthorsByName = (authors) => {
+        let sortAuthors = authors
+        sortAuthors.sort((a, b) => {
+            let fa = a.name.toLowerCase();
+            let fb = b.name.toLowerCase();
+        
+            if (fa < fb) {
+                return -1;
+            }
+            if (fa > fb) {
+                return 1;
+            }
+            return 0;
+        });
+        return sortAuthors
+     }
 
     return (
         <>
@@ -62,14 +100,14 @@ function Author() {
                     </thead>
                     <tbody>
                         {
-                            authors.map(author => (
+                            authors.map((author, index) => (
                                 <tr key={author.id}>
                                     <td>{author.name}</td>
                                     <td>{author.firstname}</td>
                                     <td>{moment(author.dateOfBirth).format("DD/MM/YYYY")}</td>
                                     <td><button onClick={() => openModalAuthorBook(author)}>Voir ({author.nbBook})</button></td>
                                     <td><button style={{backgroundColor: "#33cc33"}}>Modifier</button></td>
-                                    <td><button style={{backgroundColor: "#cc0000"}}>Supprimer</button></td>
+                                    <td><button onClick={() => openModalDeleteAuthor(author, index) } style={{backgroundColor: "#cc0000"}}>Supprimer</button></td>
                                 </tr>
                             ))
                         }
@@ -86,8 +124,15 @@ function Author() {
             <ModalAddAuthor
                 show={modalShowAddAuthor}
                 onHide={() => setModalShowAddAuthor(false)}
-                authors={authors}
-                setauthors={setAuthors}
+                updateauthors={onAddAuthor}
+            />
+
+            <ModalDeleteAuthor
+                show={modalShowDeleteAuthor}
+                onHide={() => setModalShowDeleteAuthor(false)}
+                author={author}
+                authorindex={authorIndex}
+                deleteauthor={onDeleteAuthor}
             />
         </>
     );

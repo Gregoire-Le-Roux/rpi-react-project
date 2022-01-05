@@ -29,8 +29,7 @@ function AuthorForm(props) {
             dateOfBirth: author.dateOfBirth,
             nbBook: "0",
         }
-        let newAuthors = [...props.authors, newAuthor];
-        props.setauthors(newAuthors);
+        props.updateauthors(newAuthor);
         props.onHide();
     }
     return(

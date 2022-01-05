@@ -16,7 +16,7 @@ function ModalAddAuthor(props) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <AuthorForm onHide={props.onHide} authors={props.authors} setauthors={props.setauthors}></AuthorForm>          
+          <AuthorForm onHide={props.onHide} updateauthors={props.updateauthors}></AuthorForm>          
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={props.onHide}>Close</Button>

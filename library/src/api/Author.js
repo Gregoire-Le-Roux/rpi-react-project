@@ -8,6 +8,11 @@ export const fetchAuthors = () => {
 }
 
 export const addAuthor = (author) => {
-    console.log(author)
     return axios.post(api_author + "/addAuteur.php", JSON.stringify(author));
+}
+
+export const deleteAuthor = async (jsonId) => 
+{
+    const DATA = JSON.stringify(jsonId);
+    return axios.post(api_author + "/deleteAuteur.php", DATA);
 }

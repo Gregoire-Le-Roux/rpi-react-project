@@ -8,13 +8,8 @@ function ModalAuthorBooks(props) {
 
     useEffect(() => {
         if(props.author !== undefined) {
-            fetchData();
+          fetchBooksAuthor(props.author).then(res => { setBooks(res.data) });
         }
-
-        async function fetchData() {
-            fetchBooksAuthor(props.author).then(res => { setBooks(res.data) });
-        }
-
     }, [props.author])
 
     return (
@@ -30,7 +25,7 @@ function ModalAuthorBooks(props) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            {books.map((book, index) => (
+            {books.length > 0 ? books.map((book, index) => (
                 <div key={index}>
                     <h4>{book.title}</h4>
                     <p>
@@ -47,8 +42,8 @@ function ModalAuthorBooks(props) {
                         })}
                     </p>
                 </div>
-            ))}
-          
+            ))
+          : <div>Aucun livre n'a été écrit par cet auteur.</div>}          
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={props.onHide}>Close</Button>
