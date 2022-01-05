@@ -11,6 +11,9 @@ export function AddAuthorForm(props) {
     const handleChange = (e) => {
         let value = e.target.value;
         let name = e.target.name;
+        if(name === "name") value = value.toUpperCase();
+        else if(name === "firstname") value = value.charAt(0).toUpperCase() + value.slice(1);
+        console.log(value);
         setAuthor(author => ({
             ...author,
             [name]: value
@@ -32,19 +35,20 @@ export function AddAuthorForm(props) {
         props.updateauthors(newAuthor);
         props.onHide();
     }
+
     return(
         <div>
             <form onSubmit={handleSubmit}>
                 <div>
                     <label>
                         Prénom:
-                        <input type="text" name="firstname" value={author.title} onChange={handleChange} required></input>
+                        <input type="text" name="firstname" value={author.firstname} onChange={handleChange} required></input>
                     </label>
                 </div>
                 <div>
                     <label>
                         Nom:
-                        <input type="text" name="name" value={author.description} onChange={handleChange} required></input>
+                        <input type="text" name="name" value={author.name} onChange={handleChange} required></input>
                     </label>
                 </div>
                 <div>
@@ -64,6 +68,8 @@ export function ModifyAuthorForm(props) {
     const handleChange = (e) => {
         let value = e.target.value;
         let name = e.target.name;
+        if(name === "name") value = value.toUpperCase();
+        else if(name === "firstname") value = value.charAt(0).toUpperCase() + value.slice(1);
         setAuthor(author => ({
             ...author,
             [name]: value

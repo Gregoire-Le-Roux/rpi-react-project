@@ -12,7 +12,6 @@ export const addAuthor = (author) => {
 }
 
 export const modifyAuthor = (author) => {
-    console.log(author);
     return axios.post(api_author + "/putAuteur.php", JSON.stringify(author));
 }
 
