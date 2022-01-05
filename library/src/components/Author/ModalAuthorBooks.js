@@ -12,12 +12,10 @@ function ModalAuthorBooks(props) {
         }
 
         async function fetchData() {
-            await fetchBooksAuthor(props.author).then(res => { setBooks(res.data) });
+            fetchBooksAuthor(props.author).then(res => { setBooks(res.data) });
         }
 
     }, [props.author])
-
-    console.log(books);
 
     return (
       <Modal

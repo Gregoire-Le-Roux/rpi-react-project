@@ -4,20 +4,10 @@ import axios from 'axios';
 const api_book = process.env.REACT_APP_URL_API + "/livre"
 
 export const fetchBooks = async () => {
-    return new Promise((resolve, reject) => {
-        axios.get(api_book + "/getLivre.php")
-            .then(res => {
-                resolve(res);
-            });
-    })
+    return axios.get(api_book + "/getLivre.php");
 }
 
 export const fetchBooksAuthor = async (author) => {
     let id = JSON.stringify({id: author.id});
-    return new Promise((resolve, reject) => {
-        axios.post(api_book + "/getLivreAuteur.php", id)
-            .then(res => {
-                resolve(res);
-            });
-    })
+    return axios.post(api_book + "/getLivreAuteur.php", id);
 }

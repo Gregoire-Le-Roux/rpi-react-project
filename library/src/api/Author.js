@@ -3,11 +3,11 @@ import axios from 'axios';
 
 const api_author = process.env.REACT_APP_URL_API + "/auteur"
 
-export const fetchAuthors = async () => {
-    return new Promise((resolve, reject) => {
-        axios.get(api_author + "/getAuteur.php")
-            .then(res => {
-                resolve(res);
-            });
-    })
+export const fetchAuthors = () => {
+    return axios.get(api_author + "/getAuteur.php");
+}
+
+export const addAuthor = (author) => {
+    console.log(author)
+    return axios.post(api_author + "/addAuteur.php", JSON.stringify(author));
 }
