@@ -15,7 +15,7 @@ function Book()
             fetchBooks().then(res => setListBook(res.data))
         }, []);
     
-    function OnDeleteBook(_id, _index)
+    function DeleteBook(_id, _index)
     {
         fetchBookDelete({ id: _id }).then(
             () => 
@@ -32,7 +32,7 @@ function Book()
         setModalShow(true);
     }
 
-    const UpdateListBook = (_newBookJsonString, _nameAuthor, _firstnameAuthor, _idLivre) =>
+    function UpdateListBook(_newBookJsonString, _nameAuthor, _firstnameAuthor, _idLivre)
     {
         let jsonObj = JSON.parse(_newBookJsonString);
 
@@ -44,7 +44,7 @@ function Book()
             nbPage: jsonObj.nbPage, 
             releaseDate: jsonObj.releaseDate,
             name: _nameAuthor,
-            firstname: _firstnameAuthor 
+            firstname: _firstnameAuthor
         }
 
         let listAdd = [...listBook];
@@ -82,7 +82,7 @@ function Book()
                                     <td>{ book.releaseDate }</td>
                                     <td>{ book.name + " " + book.firstname }</td>
                                     <td><button style={{backgroundColor: "#33cc33"}}>Modifier</button></td>
-                                    <td> <button onClick={() => OnDeleteBook(book.id, index) } style={{backgroundColor: "#cc0000"}}>Supprimer</button></td>
+                                    <td> <button onClick={() => DeleteBook(book.id, index) } style={{backgroundColor: "#cc0000"}}>Supprimer</button></td>
                                 </tr>
                             ))   
                     }
@@ -94,7 +94,7 @@ function Book()
         <ModalAddBook
         show={modalShow}
         onHide={() => setModalShow(false)}
-        onExited={UpdateListBook}
+        postdata2parent={UpdateListBook}
         />
 
         </>
