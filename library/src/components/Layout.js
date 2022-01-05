@@ -1,9 +1,10 @@
 import { Outlet, Link } from "react-router-dom";
+import classes from './Layout.module.css';
 
 const Layout = () => {
   return (
     <>
-      <nav>
+      <nav className={classes.navbar}>
         <ul>
           <li>
             <Link to="/">Livres</Link>
