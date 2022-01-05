@@ -32,13 +32,13 @@ function Book()
         setModalShow(true);
     }
 
-    const UpdateListBook = (_newBookJsonString, _nameAuthor, _firstnameAuthor) =>
+    const UpdateListBook = (_newBookJsonString, _nameAuthor, _firstnameAuthor, _idLivre) =>
     {
         let jsonObj = JSON.parse(_newBookJsonString);
 
         const NEW_BOOK = 
         { 
-            id: jsonObj.id, 
+            id: _idLivre,
             idAuteur: jsonObj.idAuteur,
             title: jsonObj.title, 
             nbPage: jsonObj.nbPage, 
@@ -94,7 +94,7 @@ function Book()
         <ModalAddBook
         show={modalShow}
         onHide={() => setModalShow(false)}
-        postdata2parent={UpdateListBook}
+        onExited={UpdateListBook}
         />
 
         </>

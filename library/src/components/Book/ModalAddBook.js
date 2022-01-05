@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { useForm } from 'react-hook-form'
 import { fetchAuthors } from '../../api/Author';
+import { fetchBookAdd } from '../../api/Book';
 
 function ModalAddBook(props)
 {
@@ -20,18 +21,15 @@ function ModalAddBook(props)
 
     function AddBook(_dataForm)
     {
-      console.log(_dataForm);
-
-      let author = listAuthor.find(author => author.id === _dataForm.idAuteur);
-      console.log(author);
-
-      props.postdata2parent(JSON.stringify(_dataForm, author['name'], author.firstname));
-     /* fetchBookAdd(_dataForm).then(
-        () =>
+     fetchBookAdd(_dataForm).then(
+        (idLivre) =>
         {
-          props.UpdateListBook(JSON.stringify(_dataForm));
+          // API renvoie ID du livre ajouté
+          // renvoie dans le parent les infos du livres
+          let author = listAuthor.find(author => author.id === _dataForm.idAuteur);
+          props.postdata2parent(JSON.stringify(_dataForm), author['name'], author.firstname, idLivre);
         }
-      )*/
+      )
     }
 
     return(

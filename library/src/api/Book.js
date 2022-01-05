@@ -23,5 +23,5 @@ export const fetchBookDelete = async (jsonId) =>
 export const fetchBookAdd = async (dataJson) => 
 {
     const DATA = JSON.stringify(dataJson);
-    return axios.post(api_book + "/deleteLivre.php", DATA);
+    return axios.post(api_book + "/addLivre.php", DATA);
 }
