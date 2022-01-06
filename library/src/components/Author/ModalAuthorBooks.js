@@ -46,7 +46,7 @@ function ModalAuthorBooks(props) {
           : <div>Aucun livre n'a été écrit par cet auteur.</div>}          
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={props.onHide}>Close</Button>
+          <Button onClick={props.onHide}>Fermer</Button>
         </Modal.Footer>
       </Modal>
     );

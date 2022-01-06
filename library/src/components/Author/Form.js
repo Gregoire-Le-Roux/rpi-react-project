@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { addAuthor, modifyAuthor } from '../../api/Author';
+import { Button, Form } from "react-bootstrap";
 
 export function AddAuthorForm(props) {
     const [author, setAuthor] = useState({
@@ -39,25 +40,22 @@ export function AddAuthorForm(props) {
     return(
         <div>
             <form onSubmit={handleSubmit}>
-                <div>
-                    <label>
-                        Prénom:
-                        <input type="text" name="firstname" value={author.firstname} onChange={handleChange} required></input>
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        Nom:
-                        <input type="text" name="name" value={author.name} onChange={handleChange} required></input>
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        Date de naissance:
-                        <input type="date" name="dateOfBirth" value={author.dateOfBirth} onChange={handleChange} required></input>
-                    </label>
-                </div>
-                <button style={{backgroundColor: "#33cc33"}}>Ajouter</button>
+                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                    <Form.Label>Prénom:</Form.Label>
+                    <Form.Control type="text" name="firstname" value={author.firstname} onChange={handleChange} required />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                    <Form.Label>Nom:</Form.Label>
+                    <Form.Control type="text" name="name" value={author.name} onChange={handleChange} required />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                    <Form.Label>Date de naissance:</Form.Label>
+                    <Form.Control type="date" name="dateOfBirth" value={author.dateOfBirth} onChange={handleChange} required />
+                </Form.Group>
+
+                <Button variant="success">Ajouter</Button>
             </form>
         </div>
     );
