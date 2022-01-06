@@ -3,6 +3,8 @@ import { fetchBookDelete, fetchBooks } from "../../api/Book";
 import ModalAddBook from './ModalAddBook';
 import ModalUpdateBook from './ModalUpdateBook';
 import ModalDeleteBook from "./ModalDeleteBook";
+import { Button, Table } from "react-bootstrap";
+import style from './Book.module.css';
 
 function Book() 
 {
@@ -76,12 +78,14 @@ function Book()
 
     return (
         <>
-        <div>
-            <h1>Liste des livres</h1>
+        <div className={style.container}>
+            <div className={style.middle}>
+                <h1>Liste des livres</h1>
+                <Button variant="success" onClick={OpenModal}>Ajouter</Button>
+            </div>
+            <br/>
 
-            <button onClick={OpenModal}>Ajouter</button>
-
-            <table>
+            <Table striped bordered>
                 <thead>
                 <tr>
                     <th>Title</th>
@@ -113,14 +117,22 @@ function Book()
                                                 })
                                         }
                                     </td>
-                                    <td><button onClick={() => OpenModalUpdateBook(book)} style={{backgroundColor: "#33cc33"}}>Modifier</button></td>
-                                    <td> <button onClick={() => OpenModalDeleteBook(book, index) } style={{backgroundColor: "#cc0000"}}>Supprimer</button></td>
+                                    <td className={style.middle}>
+                                        <Button variant="warning" onClick={() => OpenModalUpdateBook(book)}>
+                                            Modifier
+                                        </Button>
+                                    </td>
+                                    <td className={style.middle}>
+                                        <Button variant="danger" onClick={() => OpenModalDeleteBook(book, index) }>
+                                            Supprimer
+                                        </Button>
+                                    </td>
                                 </tr>
                             ))   
                     }
                     
                 </tbody>
-            </table>
+            </Table>
         </div>
 
         <ModalAddBook

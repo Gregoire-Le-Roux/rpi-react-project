@@ -1,6 +1,5 @@
 import { Modal, Button } from 'react-bootstrap';
 
-
 function ModalDeleteBook(props) 
 {
     return (
@@ -17,7 +16,7 @@ function ModalDeleteBook(props)
         </Modal.Header>
         <Modal.Body>
             <div>
-                <Button onClick={() => {props.postconfirm2parent(props.book.id, props.indexBook); props.onHide();}} variant="danger">Supprimer</Button>
+                <Button onClick={() => {props.postconfirm2parent(props.book.id, props.indexBook); props.onHide();}} variant="danger">Supprimer</Button>{' '}
                 <Button onClick={() => props.onHide() }>Annuler</Button>
             </div>
         </Modal.Body>
