@@ -19,20 +19,13 @@ class Livre
 
         foreach ($listeLivre as $ligne)
         {
-            $sql = "SELECT idGenre
-                    FROM livre_genre g
+            $sql = "SELECT id, name
+                    FROM livre_genre lg JOIN genre g ON lg.idGenre = g.id
                     WHERE  idLivre = ?";
 
             $sth = $conn->prepare($sql);
             $sth->execute(array($ligne['id']));
             $listeGenre = $sth->fetchAll();
-
-            $liste = array();
-
-            foreach ($listeGenre as $genre) 
-            {
-                array_push($liste, $genre['idGenre']);
-            }
 
             array_push($listeReturn, array(
                 "id" => $ligne["id"],
@@ -42,7 +35,7 @@ class Livre
                 "title" => $ligne["title"],
                 "nbPage" => $ligne['nbPage'],
                 "releaseDate" => $ligne['releaseDate'],
-                "listeGenre" => $liste
+                "listeGenre" => $listeGenre
             ));
         }
 
@@ -112,7 +105,7 @@ class Livre
         }
     }
 
-    public function ModifierLivre($titre, $nbPage, $anneePublication, $idAuteur, $idLivre, $listeIdGenre)
+    public function ModifierLivre($titre, $nbPage, $anneePublication, $idAuteur, $idLivre, $listeGenre)
     {
         $conn = ConnexionBDD::getConnexion();
 
@@ -124,11 +117,11 @@ class Livre
         $sth = $conn->prepare($sql);
         $sth->execute(array($idLivre));
 
-        foreach ($listeIdGenre as $ligne) 
+        foreach ($listeGenre as $ligne) 
         {
             $sql = "INSERT INTO livre_genre (idLivre, idGenre) VALUES (?, ?)";
             $sth = $conn->prepare($sql);
-            $sth->execute(array($idLivre, $ligne));
+            $sth->execute(array($idLivre, $ligne->id));
         }
     }
 

@@ -7,7 +7,7 @@ import { fetchGenders } from '../../api/Gender';
 function FormUpdateBook(props)
 {
     // livre a modifier
-    const [book, setBook] = useState({id: "", title: "", releaseDate: "", nbPage: "", name: "", idAuteur: "", id: "", firstname: "", listeGenre: []});
+    const [book, setBook] = useState({id: "", title: "", releaseDate: "", nbPage: "", name: "", idAuteur: "", firstname: "", listeGenre: [{ id: "", naeme: "" }]});
     
     // hook custom pour recupere les valeur d'un formulaire sous forme de JSON
     // register, handleSubmit, reset => autre nom ne marchera pas
@@ -39,14 +39,14 @@ function FormUpdateBook(props)
 
     function IsInGenderBook(_idGender)
     {
-        const INDEX = book.listeGenre.findIndex(gender => gender === _idGender)
+        const INDEX = book.listeGenre.findIndex(gender => gender.id === _idGender)
         return INDEX !== -1;
     }
 
-    function UpdateListGender(_event, _idGender, _index)
+    function UpdateListGender(_event, _gender, _index)
     {
         let bookClone = book;
-        _event.target.checked === true ? bookClone.listeGenre.push(_idGender) : bookClone.listeGenre.splice(_index, 1);
+        _event.target.checked === true ? bookClone.listeGenre.push(_gender) : bookClone.listeGenre.splice(_index, 1);
 
         setBook(bookClone);
     }
@@ -91,7 +91,7 @@ function FormUpdateBook(props)
               (gender, index) =>
             (
               <li key={index}>
-                <input defaultChecked={IsInGenderBook(gender.id)} onClick={(event) => UpdateListGender(event, gender.id, index)} id={index} type="checkbox" value={ gender.id } />
+                <input defaultChecked={IsInGenderBook(gender.id)} onClick={(event) => UpdateListGender(event, gender, index)} id={index} type="checkbox" value={ gender.id } />
                 <label htmlFor={index}>{ gender.name }</label>
               </li>
             ))

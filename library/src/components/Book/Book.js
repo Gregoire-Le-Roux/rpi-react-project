@@ -73,8 +73,9 @@ function Book()
                 <tr>
                     <th>Title</th>
                     <th>Pages</th>
-                    <th>release year</th>
-                    <th>Author</th>
+                    <th>Année de sortie</th>
+                    <th>Auteur</th>
+                    <th>Genre(s)</th>
                     <th>Modifier</th>
                     <th>Supprimer</th>
                 </tr>
@@ -90,6 +91,15 @@ function Book()
                                     <td>{ book.nbPage }</td>
                                     <td>{ book.releaseDate }</td>
                                     <td>{ book.name + " " + book.firstname }</td>
+                                    <td>
+                                        {
+                                            book.listeGenre.map(
+                                                (genre, index) =>
+                                                {
+                                                    return index === 0 ? genre.name : ", " + genre.name
+                                                })
+                                        }
+                                    </td>
                                     <td><button onClick={() => OpenModalUpdateBook(book)} style={{backgroundColor: "#33cc33"}}>Modifier</button></td>
                                     <td> <button onClick={() => DeleteBook(book.id, index) } style={{backgroundColor: "#cc0000"}}>Supprimer</button></td>
                                 </tr>
