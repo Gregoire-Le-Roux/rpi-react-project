@@ -1,6 +1,6 @@
 import GenderForm from "./Form";
 import { useEffect, useState } from "react";
-import { fetchGenders } from '../../api/Gender';
+import { fetchGenders, deleteGender } from '../../api/Gender';
 
 function Gender() {
     const [genders, setGenders] = useState([]);
@@ -18,6 +18,18 @@ function Gender() {
 
         fetchData();
     }, [])
+
+    function DeleteGender(_id, _index) {
+
+        deleteGender({ id: _id }).then( () => {
+        
+                let listReturn = [...genders];
+                listReturn.splice(_index, 1);
+
+                setGenders(listReturn);
+        })
+        
+    }
 
     const onAddGender = (newGender) => {      
         console.log(newGender);  
@@ -42,11 +54,11 @@ function Gender() {
                     </thead>
                     <tbody>
                         {
-                            genders.map((gender) => (
+                            genders.map((gender, index) => (
                                 <tr key={gender.id}>
                                     <td>{gender.name}</td>
                                     <td><button onClick={() => console.log("click")} style={{backgroundColor: "#33cc33"}}>Modifier</button></td>
-                                    <td><button onClick={() => console.log("click")} style={{backgroundColor: "#cc0000"}}>Supprimer</button></td>
+                                    <td><button onClick={() => DeleteGender(gender, index) } style={{backgroundColor: "#cc0000"}}>Supprimer</button></td>
                                 </tr>
                             ))
                         }

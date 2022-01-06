@@ -16,7 +16,6 @@ function GenderForm (props) {
         }
         props.updategenders(newGender);
         let genderInput = document.getElementById("genderName");
-        console.log(genderInput);
         genderInput.value = ""
 
     };
