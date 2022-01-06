@@ -1,4 +1,6 @@
 # Gestion de livres d'une bibliothèque
+Fait par Grégoire, Nicolas et Yohann
+
 Notre projet consiste à gérer les livres, les genres et les auteurs.
 Nous utilisons une API PHP native et un serveur MySQL (très simple) faites par Nicolas.
 (API en ligne restera en ligne)
