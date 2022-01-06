@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import { fetchBookDelete, fetchBooks } from "../../api/Book";
 import ModalAddBook from './ModalAddBook';
+import ModalUpdateBook from './ModalUpdateBook';
 
 function Book() 
 {
     const [listBook, setListBook] = useState([]);
-    const [modalShow, setModalShow] = useState(false);
+    const [book2Update, setBook2Update] = useState();
+    const [modalUpdateShow, setModalUpdateShow] = useState(false);
+    const [modalAddShow, setModalAddShow] = useState(false);
 
     // executer au chargement de la page
     // appel les livres
@@ -29,7 +32,13 @@ function Book()
 
     function OpenModal()
     {
-        setModalShow(true);
+        setModalAddShow(true);
+    }
+
+    function OpenModalUpdateBook(_book)
+    {
+        setBook2Update(_book);
+        setModalUpdateShow(true);
     }
 
     function UpdateListBook(_newBookJsonString, _nameAuthor, _firstnameAuthor, _idLivre)
@@ -81,7 +90,7 @@ function Book()
                                     <td>{ book.nbPage }</td>
                                     <td>{ book.releaseDate }</td>
                                     <td>{ book.name + " " + book.firstname }</td>
-                                    <td><button style={{backgroundColor: "#33cc33"}}>Modifier</button></td>
+                                    <td><button onClick={() => OpenModalUpdateBook(book)} style={{backgroundColor: "#33cc33"}}>Modifier</button></td>
                                     <td> <button onClick={() => DeleteBook(book.id, index) } style={{backgroundColor: "#cc0000"}}>Supprimer</button></td>
                                 </tr>
                             ))   
@@ -92,11 +101,16 @@ function Book()
         </div>
 
         <ModalAddBook
-        show={modalShow}
-        onHide={() => setModalShow(false)}
+        show={modalAddShow}
+        onHide={() => setModalAddShow(false)}
         postdata2parent={UpdateListBook}
         />
 
+        <ModalUpdateBook
+        show={modalUpdateShow}
+        onHide={() => setModalUpdateShow(false)}
+        book={book2Update}
+        />
         </>
     );
 }

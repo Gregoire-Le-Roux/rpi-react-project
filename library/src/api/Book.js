@@ -25,3 +25,9 @@ export const fetchBookAdd = async (dataJson) =>
     const DATA = JSON.stringify(dataJson);
     return axios.post(api_book + "/addLivre.php", DATA);
 }
+
+export const fetchBookUpdate = async (dataJson) => 
+{
+    const DATA = JSON.stringify(dataJson);
+    return axios.post(api_book + "/putLivre.php", DATA);
+}
