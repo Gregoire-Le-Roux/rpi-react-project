@@ -7,7 +7,7 @@ import { fetchGenders } from '../../api/Gender';
 function FormUpdateBook(props)
 {
     // livre a modifier
-    const [book, setBook] = useState({title: "", releaseDate: "", nbPage: "", name: "", idAuteur: "", id: "", firstname: "", listeGenre: []});
+    const [book, setBook] = useState({id: "", title: "", releaseDate: "", nbPage: "", name: "", idAuteur: "", id: "", firstname: "", listeGenre: []});
     
     // hook custom pour recupere les valeur d'un formulaire sous forme de JSON
     // register, handleSubmit, reset => autre nom ne marchera pas
@@ -53,6 +53,9 @@ function FormUpdateBook(props)
 
     return (
         <form onSubmit={handleSubmit(UpdateBook)}>
+
+        {/* id livre */}
+        <input {...register("id")} type="hidden" value={book.id} />
 
         {/* titre */}
         <label htmlFor="title">Titre</label><br/>
