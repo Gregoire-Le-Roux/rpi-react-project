@@ -38,11 +38,11 @@ function ModalAddBook(props)
       )
     }
 
-    function UpdateListGender2Add(event, _index)
+    function UpdateListGender2Add(event, _gender, _index)
     {
       let liste = [...listGender2add];
 
-      event.target.checked === true ? liste.push(event.target.value) : liste.splice(_index, 1);
+      event.target.checked === true ? liste.push({ id: event.target.value, name: _gender.name }) : liste.splice(_index, 1);
       setListGender2add(liste);
     }
 
@@ -96,7 +96,7 @@ function ModalAddBook(props)
                   (gender, index) =>
                 (
                   <li key={index}>
-                    <input id={index} type="checkbox" value={ gender.id } onClick={UpdateListGender2Add} />
+                    <input id={index} type="checkbox" value={ gender.id } onClick={(event) => UpdateListGender2Add(event, gender, index)} />
                     <label htmlFor={index}>{ gender.name }</label>
                   </li>
                 ))

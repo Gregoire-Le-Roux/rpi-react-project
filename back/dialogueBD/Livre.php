@@ -101,7 +101,7 @@ class Livre
         {
             $sql = "INSERT INTO livre_genre (idLivre, idGenre) VALUES (?, ?)";
             $sth = $conn->prepare($sql);
-            $sth->execute(array($idLivre, $ligne));
+            $sth->execute(array($idLivre, $ligne->id));
         }
     }
 
