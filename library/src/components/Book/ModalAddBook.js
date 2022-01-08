@@ -60,7 +60,7 @@ function ModalAddBook(props)
         </Modal.Header>
         <Modal.Body>
 
-          <form onSubmit={handleSubmit(AddBook)}>
+          <form>
 
             {/* titre */}
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -109,7 +109,7 @@ function ModalAddBook(props)
               }
             </Row>
 
-            <Button variant="success">Ajouter</Button>
+            <Button variant="success" onClick={handleSubmit(AddBook)}>Ajouter</Button>
           </form>
 
         </Modal.Body>

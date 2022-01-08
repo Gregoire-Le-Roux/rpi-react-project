@@ -97,7 +97,7 @@ function Author() {
             <div className={style.container}>
                 <div className={style.middle}>
                     <h1>Liste des auteurs</h1>
-                    <Button variant='success' onClick={() => openModalAddAuthor(author)}>Ajouter un auteur</Button>
+                    <Button variant='success' onClick={() => openModalAddAuthor()}>Ajouter un auteur</Button>
                 </div>
                 <br/>
 

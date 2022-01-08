@@ -39,7 +39,7 @@ export function AddAuthorForm(props) {
 
     return(
         <div>
-            <form onSubmit={handleSubmit}>
+            <form>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                     <Form.Label>Prénom:</Form.Label>
                     <Form.Control type="text" name="firstname" value={author.firstname} onChange={handleChange} required />
@@ -55,7 +55,7 @@ export function AddAuthorForm(props) {
                     <Form.Control type="date" name="dateOfBirth" value={author.dateOfBirth} onChange={handleChange} required />
                 </Form.Group>
 
-                <Button variant="success">Ajouter</Button>
+                <Button variant="success" onClick={handleSubmit} >Ajouter</Button>
             </form>
         </div>
     );
