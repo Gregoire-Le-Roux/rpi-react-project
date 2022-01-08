@@ -92,8 +92,10 @@ function Author() {
 
     return (
         <>
+
+        <div>
+            <h1>Liste des auteurs</h1>
             <button onClick={() => openModalAddAuthor(author)}>Ajouter un auteur</button>
-            <div>
                 <table>
                     <thead>
                         <tr>
