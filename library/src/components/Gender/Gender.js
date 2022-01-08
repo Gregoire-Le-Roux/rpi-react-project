@@ -1,6 +1,7 @@
 import GenderForm from "./Form";
 import { useEffect, useState } from "react";
 import { fetchGenders, deleteGender } from '../../api/Gender';
+import { Table, Button } from 'react-bootstrap';
 
 function Gender() {
     const [genders, setGenders] = useState([]);
@@ -41,7 +42,7 @@ function Gender() {
     return (
         <div>
             <GenderForm updategenders={onAddGender} ></GenderForm>
-            <table>
+            <Table>
                     <thead>
                         <tr>
                             <th>
@@ -57,13 +58,21 @@ function Gender() {
                             genders.map((gender, index) => (
                                 <tr key={gender.id}>
                                     <td>{gender.name}</td>
-                                    <td><button onClick={() => console.log("click")} style={{backgroundColor: "#33cc33"}}>Modifier</button></td>
-                                    <td><button onClick={() => DeleteGender(gender, index) } style={{backgroundColor: "#cc0000"}}>Supprimer</button></td>
+                                    <td>
+                                        <Button onClick={() => console.log("click")} style={{backgroundColor: "#33cc33"}}>
+                                            Modifier
+                                        </Button>
+                                    </td>
+                                    <td>
+                                        <Button onClick={() => DeleteGender(gender.id, index) } style={{backgroundColor: "#cc0000"}}>
+                                            Supprimer
+                                        </Button>
+                                    </td>
                                 </tr>
                             ))
                         }
                     </tbody>
-                </table>
+                </Table>
         </div>
     );
 }
