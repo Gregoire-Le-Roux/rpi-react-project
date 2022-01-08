@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Modal, Button } from 'react-bootstrap';
 import { useForm } from 'react-hook-form'
 import { fetchAuthors } from '../../api/Author';
 import { fetchBookAdd } from '../../api/Book';
 import { fetchGenders } from '../../api/Gender';
+import { Form, Button, Modal, Row, Col } from 'react-bootstrap';
 
 function ModalAddBook(props)
 {
@@ -38,11 +38,11 @@ function ModalAddBook(props)
       )
     }
 
-    function UpdateListGender2Add(event, _index)
+    function UpdateListGender2Add(event, _gender, _index)
     {
       let liste = [...listGender2add];
 
-      event.target.checked === true ? liste.push(event.target.value) : liste.splice(_index, 1);
+      event.target.checked === true ? liste.push({ id: event.target.value, name: _gender.name }) : liste.splice(_index, 1);
       setListGender2add(liste);
     }
 
@@ -63,54 +63,58 @@ function ModalAddBook(props)
           <form onSubmit={handleSubmit(AddBook)}>
 
             {/* titre */}
-            <label htmlFor="title">Titre</label><br/>
-            <input id="title" {...register("title")} type="text" maxLength="200" required />
-            <br/><br/>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Titre</Form.Label>
+              <Form.Control {...register("title")} type="text" maxLength="200" required />
+            </Form.Group>
 
             {/* Nombre de pages */}
-            <label htmlFor="nbPage">Nombre de pages</label><br/>
-            <input id="nbPage" {...register("nbPage")} type="number" min="1" step="1" required />
-            <br/><br/>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Nombre de pages</Form.Label>
+              <Form.Control {...register("nbPage")} type="number" min="1" step="1" required />
+            </Form.Group>
 
             {/* Année de publication */}
-            <label htmlFor="releaseDate">Année de publication</label><br/>
-            <input id="releaseDate" {...register("releaseDate")}  type="number" step="1" required />
-            <br/><br/>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Année de publication</Form.Label>
+              <Form.Control {...register("releaseDate")}  type="number" step="1" required />
+            </Form.Group>
 
             {/* auteur */}
-            <label htmlFor="idAuthor">Auteur</label><br/>
-            <select id="idAuthor" {...register("idAuteur")} required>
-              { 
+            <Form.Label>Auteur</Form.Label>
+            <Form.Select {...register("idAuteur")} required>
+            { 
                 listAuthor.map(
                   (author, index) => 
                   (
                     <option key={index} value={ author.id }>{ author.name + " " + author.firstname }</option>
                   ))
               }
-            </select>
+            </Form.Select>
 
             {/* liste des genres */}
-            <ul>
+            <br/>
+              <h3>Liste des genres</h3>
+            <br/>
+
+            <Row>
               {
                 listGender.map(
                   (gender, index) =>
                 (
-                  <li key={index}>
-                    <input id={index} type="checkbox" value={ gender.id } onClick={UpdateListGender2Add} />
-                    <label htmlFor={index}>{ gender.name }</label>
-                  </li>
-                ))
-                
+                  <Col xs="12" lg="3" md="4" sm="4" key={index} className="mb-3">
+                    <Form.Check label={gender.name} type="checkbox" value={ gender.id } onClick={(event) => UpdateListGender2Add(event, gender, index)} />
+                  </Col>
+                )) 
               }
-              
-            </ul>
+            </Row>
 
-            <button style={{ backgroundColor: "green" }}>Ajouter</button>
+            <Button variant="success">Ajouter</Button>
           </form>
 
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={props.onHide}>Close</Button>
+          <Button onClick={props.onHide}>Fermer</Button>
         </Modal.Footer>
       </Modal>
     )

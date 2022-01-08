@@ -13,3 +13,9 @@ export const addGender = (gender) => {
     }
     return axios.post(api_gender + "/addGenre.php", JSON.stringify(data));
 }
+
+export const deleteGender = async (jsonId) => 
+{
+    const DATA = JSON.stringify(jsonId);
+    return axios.post(api_gender + "/deleteGenre.php", DATA);
+}

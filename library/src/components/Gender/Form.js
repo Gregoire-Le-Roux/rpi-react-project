@@ -1,13 +1,23 @@
 import { useState } from "react";
 import { addGender } from "../../api/Gender"
 
-function GenderForm () {
-    const [gender, setGender] = useState('')
+function GenderForm (props) {
+    const [gender, setGender] = useState("")
 
 
-    const SubmitClick = (event) => {
+    const SubmitClick = async (event) => {
         event.preventDefault();
-        addGender(gender)
+    
+        const res = await addGender(gender);
+        let id = res.data
+        let newGender = {
+            id: id,
+            name: gender
+        }
+        props.updategenders(newGender);
+        let genderInput = document.getElementById("genderName");
+        genderInput.value = ""
+
     };
 
     function genderChange(e) {
@@ -17,7 +27,7 @@ function GenderForm () {
 
     return (
         <form onSubmit={SubmitClick}>
-            <input type="text" value={gender} onChange={genderChange} placeholder="Exemple: Fantastique" required></input>
+            <input type="text" id="genderName" value={gender} onChange={genderChange} placeholder="Exemple: Fantastique" required></input>
             <br></br>
             <button type="submit" >Ajouter</button>
         </form>

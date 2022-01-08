@@ -2,13 +2,20 @@ import { useState, useEffect } from "react";
 import { fetchBookDelete, fetchBooks } from "../../api/Book";
 import ModalAddBook from './ModalAddBook';
 import ModalUpdateBook from './ModalUpdateBook';
+import ModalDeleteBook from "./ModalDeleteBook";
+import { Button, Table } from "react-bootstrap";
+import style from './Book.module.css';
 
 function Book() 
 {
     const [listBook, setListBook] = useState([]);
     const [book2Update, setBook2Update] = useState();
+    const [book2Delete, setBook2Delete] = useState();
+    const [indexBook2Delete, setIndexBook2Delete] = useState();
+
     const [modalUpdateShow, setModalUpdateShow] = useState(false);
     const [modalAddShow, setModalAddShow] = useState(false);
+    const [modalDeleteShow, setModalDeleteShow] = useState(false);
 
     // executer au chargement de la page
     // appel les livres
@@ -41,6 +48,13 @@ function Book()
         setModalUpdateShow(true);
     }
 
+    function OpenModalDeleteBook(_book, _index)
+    {
+        setBook2Delete(_book);
+        setIndexBook2Delete(_index);
+        setModalDeleteShow(true);
+    }
+
     function UpdateListBook(_newBookJsonString, _nameAuthor, _firstnameAuthor, _idLivre)
     {
         let jsonObj = JSON.parse(_newBookJsonString);
@@ -53,7 +67,8 @@ function Book()
             nbPage: jsonObj.nbPage, 
             releaseDate: jsonObj.releaseDate,
             name: _nameAuthor,
-            firstname: _firstnameAuthor
+            firstname: _firstnameAuthor,
+            listeGenre: jsonObj.listeGenre
         }
 
         let listAdd = [...listBook];
@@ -63,18 +78,21 @@ function Book()
 
     return (
         <>
-        <div>
-            <h1>Liste des livres</h1>
+        <div className={style.container}>
+            <div className={style.middle}>
+                <h1>Liste des livres</h1>
+                <Button variant="success" onClick={OpenModal}>Ajouter</Button>
+            </div>
+            <br/>
 
-            <button onClick={OpenModal}>Ajouter</button>
-
-            <table>
+            <Table striped bordered>
                 <thead>
                 <tr>
                     <th>Title</th>
                     <th>Pages</th>
-                    <th>release year</th>
-                    <th>Author</th>
+                    <th>Année de sortie</th>
+                    <th>Auteur</th>
+                    <th>Genre(s)</th>
                     <th>Modifier</th>
                     <th>Supprimer</th>
                 </tr>
@@ -90,14 +108,31 @@ function Book()
                                     <td>{ book.nbPage }</td>
                                     <td>{ book.releaseDate }</td>
                                     <td>{ book.name + " " + book.firstname }</td>
-                                    <td><button onClick={() => OpenModalUpdateBook(book)} style={{backgroundColor: "#33cc33"}}>Modifier</button></td>
-                                    <td> <button onClick={() => DeleteBook(book.id, index) } style={{backgroundColor: "#cc0000"}}>Supprimer</button></td>
+                                    <td>
+                                        {
+                                            book.listeGenre.map(
+                                                (genre, index) =>
+                                                {
+                                                    return index === 0 ? genre.name : ", " + genre.name
+                                                })
+                                        }
+                                    </td>
+                                    <td className={style.middle}>
+                                        <Button variant="warning" onClick={() => OpenModalUpdateBook(book)}>
+                                            Modifier
+                                        </Button>
+                                    </td>
+                                    <td className={style.middle}>
+                                        <Button variant="danger" onClick={() => OpenModalDeleteBook(book, index) }>
+                                            Supprimer
+                                        </Button>
+                                    </td>
                                 </tr>
                             ))   
                     }
                     
                 </tbody>
-            </table>
+            </Table>
         </div>
 
         <ModalAddBook
@@ -110,6 +145,14 @@ function Book()
         show={modalUpdateShow}
         onHide={() => setModalUpdateShow(false)}
         book={book2Update}
+        />
+
+        <ModalDeleteBook 
+        show={modalDeleteShow} 
+        onHide={() => setModalDeleteShow(false) } 
+        book={book2Delete}
+        indexBook={indexBook2Delete}
+        postconfirm2parent={DeleteBook}
         />
         </>
     );

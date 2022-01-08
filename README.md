@@ -11,14 +11,14 @@ Nous utilisons une API PHP native et un serveur MySQL (très simple) faites par 
     <li>Ajouter</li>
     <li>Modifier</li>
     <li>Supprimer</li>
-<ul>
+</ul>
 
 ## Genre
 <ul>
     <li>Lister</li>
     <li>Ajouter</li>
     <li>Modifier</li>
-<ul>
+</ul>
 
 # Hook custom form (useForm)
 installation: npm i react-hook-form

@@ -20,7 +20,7 @@ function ModalUpdateBook(props)
         <FormUpdateBook book={props.book} />
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={props.onHide}>Close</Button>
+        <Button onClick={props.onHide}>Fermer</Button>
       </Modal.Footer>
     </Modal>
   )

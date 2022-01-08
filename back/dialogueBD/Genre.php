@@ -36,6 +36,8 @@ class Genre
 
     public function SupprimerGenre($id)
     {
+        $conn = ConnexionBDD::getConnexion();
+
         $sql = "DELETE FROM genre WHERE id = ?";
         $sth = $conn->prepare($sql);
         $sth->execute(array($id));
@@ -43,6 +45,8 @@ class Genre
 
     public function ModifierGenre($name, $id)
     {
+        $conn = ConnexionBDD::getConnexion();
+
         $sql = "UPDATE genre SET name = ? WHERE id = ?";
         $sth = $conn->prepare($sql);
         $sth->execute(array($name, $id));

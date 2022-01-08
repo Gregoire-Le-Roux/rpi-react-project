@@ -19,7 +19,7 @@ function ModalModifyAuthor(props) {
           <ModifyAuthorForm onHide={props.onHide} author={props.author} updateauthors={props.updateauthors}></ModifyAuthorForm>          
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={props.onHide}>Close</Button>
+          <Button onClick={props.onHide}>Fermer</Button>
         </Modal.Footer>
       </Modal>
     );
