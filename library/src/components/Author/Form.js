@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { addAuthor, modifyAuthor } from '../../api/Author';
 
 export function AddAuthorForm(props) {
     const [author, setAuthor] = useState({
@@ -20,19 +19,10 @@ export function AddAuthorForm(props) {
         }));
     }
 
-    const handleSubmit = async (e) => {        
+    const handleSubmit = (e) => {        
         e.preventDefault();
 
-        const res = await addAuthor(author);
-        let id = res.data
-        let newAuthor = {
-            id: id,
-            name: author.name,
-            firstname: author.firstname,
-            dateOfBirth: author.dateOfBirth,
-            nbBook: "0",
-        }
-        props.updateauthors(newAuthor);
+        props.updateauthors(author);
         props.onHide();
     }
 
@@ -76,10 +66,9 @@ export function ModifyAuthorForm(props) {
         }));
     }
 
-    const handleSubmit = async (e) => {        
+    const handleSubmit = (e) => {        
         e.preventDefault();
 
-        modifyAuthor(author);
         props.updateauthors(author);
         props.onHide();
     }

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import moment from 'moment'
-import { fetchAuthors, deleteAuthor } from '../../api/Author';
+import { fetchAuthors, addAuthor, deleteAuthor, modifyAuthor } from '../../api/Author';
 import ModalAuthorBooks from './ModalAuthorBooks';
 import ModalAddAuthor from './ModalAddAuthor';
 import ModalModifyAuthor from './ModalModifyAuthor';
@@ -30,7 +30,18 @@ function Author() {
         fetchData();
     }, [])
 
-    const onAddAuthor = (newAuthor) => {        
+    const onAddAuthor = async (author) => {  
+
+        const res = await addAuthor(author);
+        let id = res.data
+        let newAuthor = {
+            id: id,
+            name: author.name,
+            firstname: author.firstname,
+            dateOfBirth: author.dateOfBirth,
+            nbBook: "0",
+        }
+        modifyAuthor(newAuthor);      
         let listAuthors = [...authors, newAuthor];
         listAuthors = sortAuthorsByName(listAuthors);
         setAuthors(listAuthors);
