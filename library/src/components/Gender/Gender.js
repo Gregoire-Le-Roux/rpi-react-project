@@ -2,6 +2,7 @@ import { GenderForm } from "./Form";
 import { useEffect, useState } from "react";
 import { fetchGenders, addGender, deleteGender, updateGender } from '../../api/Gender';
 import ModalModifyGender from "./ModalModifyGender";
+import { Table, Button } from 'react-bootstrap';
 
 function Gender(props) {
     const [genders, setGenders] = useState([]);
@@ -65,7 +66,7 @@ function Gender(props) {
         <>
             <div>
                 <GenderForm updategenders={onAddGender} ></GenderForm>
-                <table>
+                <Table>
                         <thead>
                             <tr>
                                 <th>
@@ -81,13 +82,13 @@ function Gender(props) {
                                 genders.map((gender, index) => (
                                     <tr key={gender.id}>
                                         <td>{gender.name}</td>
-                                        <td><button onClick={() => openModalModifyGender(gender) } style={{backgroundColor: "#33cc33"}}>Modifier</button></td>
-                                        <td><button onClick={() => DeleteGender(gender.id, index) } style={{backgroundColor: "#cc0000"}}>Supprimer</button></td>
+                                        <td><Button onClick={() => openModalModifyGender(gender) } style={{backgroundColor: "#33cc33"}}>Modifier</Button></td>
+                                        <td><Button onClick={() => DeleteGender(gender.id, index) } style={{backgroundColor: "#cc0000"}}>Supprimer</Button></td>
                                     </tr>
                                 ))
                             }
                         </tbody>
-                    </table>
+                    </Table>
             </div>
 
             <ModalModifyGender

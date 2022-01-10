@@ -16,7 +16,7 @@ function ModalDeleteAuthor(props) {
         </Modal.Header>
         <Modal.Body>
             <div>
-                <Button onClick={() => {props.deleteauthor(props.author.id, props.authorindex); props.onHide();}} variant="danger">Supprimer</Button>
+                <Button onClick={() => {props.deleteauthor(props.author.id, props.authorindex); props.onHide();}} variant="danger">Supprimer</Button>{' '}
                 <Button onClick={() => props.onHide() }>Annuler</Button>
             </div>
         </Modal.Body>

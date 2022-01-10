@@ -5,6 +5,8 @@ import ModalAuthorBooks from './ModalAuthorBooks';
 import ModalAddAuthor from './ModalAddAuthor';
 import ModalModifyAuthor from './ModalModifyAuthor';
 import ModalDeleteAuthor from './ModalDeleteAuthor';
+import { Table, Button } from 'react-bootstrap';
+import style from './Author.module.css';
 
   
 function Author() {
@@ -103,9 +105,14 @@ function Author() {
 
     return (
         <>
-            <button onClick={() => openModalAddAuthor(author)}>Ajouter un auteur</button>
-            <div>
-                <table>
+            <div className={style.container}>
+                <div className={style.middle}>
+                    <h1>Liste des auteurs</h1>
+                    <Button variant='success' onClick={() => openModalAddAuthor()}>Ajouter un auteur</Button>
+                </div>
+                <br/>
+
+                <Table striped bordered>
                     <thead>
                         <tr>
                             <th>
@@ -132,14 +139,14 @@ function Author() {
                                     <td>{author.name}</td>
                                     <td>{author.firstname}</td>
                                     <td>{moment(author.dateOfBirth).format("DD/MM/YYYY")}</td>
-                                    <td><button onClick={() => openModalAuthorBook(author)}>Voir ({author.nbBook})</button></td>
-                                    <td><button onClick={() => openModalModifyAuthor(author)} style={{backgroundColor: "#33cc33"}}>Modifier</button></td>
-                                    <td><button onClick={() => openModalDeleteAuthor(author, index)} style={{backgroundColor: "#cc0000"}}>Supprimer</button></td>
+                                    <td><Button onClick={() => openModalAuthorBook(author)}>Voir ({author.nbBook})</Button></td>
+                                    <td><Button variant='warning' onClick={() => openModalModifyAuthor(author)}>Modifier</Button></td>
+                                    <td><Button variant='danger' onClick={() => openModalDeleteAuthor(author, index)}>Supprimer</Button></td>
                                 </tr>
                             ))
                         }
                     </tbody>
-                </table>
+                </Table>
             </div>
             
 

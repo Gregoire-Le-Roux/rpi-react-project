@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { addGender } from "../../api/Gender"
+import { addGender } from "../../api/Gender";
+import { Button, Form } from 'react-bootstrap';
 
 export function GenderForm (props) {
     const [gender, setGender] = useState("")
@@ -19,11 +20,11 @@ export function GenderForm (props) {
     }
 
     return (
-        <form onSubmit={SubmitClick}>
-            <input type="text" value={gender} onChange={genderChange} placeholder="Exemple: Fantastique" required></input>
-            <br></br>
-            <button type="submit" >Ajouter</button>
-        </form>
+        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+            <Form.Control type="text" value={gender} onChange={genderChange} placeholder="Exemple: Fantastique" required />
+            <br />
+            <Button type="submit" onClick={SubmitClick}>Ajouter</Button>
+        </Form.Group>
     );
 }
 
