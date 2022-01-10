@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { addGender } from "../../api/Gender";
 import { Button, Form } from 'react-bootstrap';
 
 export function GenderForm (props) {
@@ -50,15 +49,13 @@ export function ModifyGenderForm(props) {
     }
     return(
         <div>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>
-                        Nom:
-                        <input type="text" name="name" value={gender.name} onChange={handleChange} required></input>
-                    </label>
-                </div>
-                <button style={{backgroundColor: "#33cc33"}}>Modifier</button>
-            </form>
+            <Form>
+                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                    <Form.Label>Nom:</Form.Label>                        
+                    <Form.Control type="text" name="name" value={gender.name} onChange={handleChange} required />
+                </Form.Group>
+                <Button variant="success" onClick={handleSubmit}>Modifier</Button>
+            </Form>
         </div>
     );
 }

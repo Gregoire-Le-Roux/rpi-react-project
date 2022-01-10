@@ -2,12 +2,15 @@ import { GenderForm } from "./Form";
 import { useEffect, useState } from "react";
 import { fetchGenders, addGender, deleteGender, updateGender } from '../../api/Gender';
 import ModalModifyGender from "./ModalModifyGender";
+import ModalDeleteGender from "./ModalDeleteGender";
 import { Table, Button } from 'react-bootstrap';
 
 function Gender(props) {
     const [genders, setGenders] = useState([]);
     const [gender, setGender] = useState("");
+    const [genderIndex, setGenderIndex] = useState();
     const [modalShowModifyGender, setModalShowModifyGender] = useState(false);
+    const [modalShowDeleteGender, setModalShowDeleteGender] = useState(false);
 
     //useEffect s'execute à chaque rechargement de page
     useEffect( async () => {
@@ -62,6 +65,12 @@ function Gender(props) {
         setModalShowModifyGender(true);
     }
 
+    const openModalDeleteGender = (gender, index) => {
+        setGender(gender);
+        setGenderIndex(index);
+        setModalShowDeleteGender(true);
+    }
+
     return (
         <>
             <div>
@@ -82,8 +91,8 @@ function Gender(props) {
                                 genders.map((gender, index) => (
                                     <tr key={gender.id}>
                                         <td>{gender.name}</td>
-                                        <td><Button onClick={() => openModalModifyGender(gender) } style={{backgroundColor: "#33cc33"}}>Modifier</Button></td>
-                                        <td><Button onClick={() => DeleteGender(gender.id, index) } style={{backgroundColor: "#cc0000"}}>Supprimer</Button></td>
+                                        <td><Button variant='warning' onClick={() => openModalModifyGender(gender) }>Modifier</Button></td>
+                                        <td><Button variant='danger' onClick={() => openModalDeleteGender(gender, index) }>Supprimer</Button></td>
                                     </tr>
                                 ))
                             }
@@ -98,6 +107,13 @@ function Gender(props) {
                 gender={gender}
             />
 
+            <ModalDeleteGender
+                show={modalShowDeleteGender}
+                onHide={() => setModalShowDeleteGender(false)}
+                gender={gender}
+                genderindex={genderIndex}
+                deletegender={DeleteGender}
+            />
         </>
     );
 }

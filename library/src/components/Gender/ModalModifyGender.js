@@ -12,7 +12,7 @@ function ModalModifyGender(props) {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Modifier le genre : {props.gender !== undefined ? props.gender.firstname + " " + props.gender.name : "aucun"}
+            Modifier le genre : {props.gender !== undefined ? props.gender.name : "aucun"}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
