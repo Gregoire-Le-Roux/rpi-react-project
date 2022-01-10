@@ -1,9 +1,10 @@
 import GenderForm from "./Form";
 import { useEffect, useState } from "react";
-import { fetchGenders, deleteGender } from '../../api/Gender';
+import { fetchGenders, deleteGender, updateGender } from '../../api/Gender';
 
-function Gender() {
+function Gender(props) {
     const [genders, setGenders] = useState([]);
+    const [updateGenders, setUpdateGenders] = useState("");
 
     //useEffect s'execute à chaque rechargement de page
     useEffect(() => {
@@ -38,6 +39,25 @@ function Gender() {
         setGenders(listGenders);
     }
 
+    const clickModify = async () => {
+    
+        const res = await updateGender(genders);
+        let id = res.data
+        let renameGender = {
+            id: id,
+            name: genders.rename
+        }
+        onAddGender(renameGender);
+        let genderInput = document.getElementById("genderRename");
+        genderInput.value = ""
+
+    };
+
+    function genderUpdate(e) {
+        let value = e.target.value
+        setUpdateGenders(value)
+    }
+
     return (
         <div>
             <GenderForm updategenders={onAddGender} ></GenderForm>
@@ -57,8 +77,9 @@ function Gender() {
                             genders.map((gender, index) => (
                                 <tr key={gender.id}>
                                     <td>{gender.name}</td>
-                                    <td><button onClick={() => console.log("click")} style={{backgroundColor: "#33cc33"}}>Modifier</button></td>
-                                    <td><button onClick={() => DeleteGender(gender, index) } style={{backgroundColor: "#cc0000"}}>Supprimer</button></td>
+                                    <td><button onClick={() => DeleteGender(gender.id, index) } style={{backgroundColor: "#cc0000"}}>Supprimer</button></td>
+                                    <td><input type="text" id="genderRename" value={gender.rename} onChange={genderUpdate} placeholder="Exemple: Drama à la place de Fantastique" required></input></td>
+                                    <td><button onClick={() => clickModify(gender.id, gender.rename) } style={{backgroundColor: "#33cc33"}}>Modifier</button></td>
                                 </tr>
                             ))
                         }
