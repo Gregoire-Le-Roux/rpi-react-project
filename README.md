@@ -58,3 +58,9 @@ path => nom de la route a mettre dans URL
 </ul>
 
 element => nom du component à afficher
+
+# Deployer en prod
+
+1- npm run build dans le projet
+2 recuperer le contenue du dossier build généré a la racine
+3 mettez le contenue récuperer sur le serveur
